@@ -7,6 +7,7 @@ import {
   criarAutor,
   criarLivro,
   pegarAutor,
+  pegarLivro,
 } from "./database.mjs";
 
 const router = new Router();
@@ -63,6 +64,22 @@ router.get("/autor", (req, res) => {
     res
       .status(404)
       .json("Erro ao encontrar autor. Verifique se o autor existe");
+  }
+});
+
+router.get("/livro", (req, res) => {
+  const autorSLug = req.query.get("autor");
+  const livroSLug = req.query.get("livro");
+  const livro = pegarLivro(autorSLug, livroSLug);
+
+  if (livro) {
+    res.status(200).json(livro);
+  } else {
+    res
+      .status(404)
+      .json(
+        "Não foi possivel encontrar os Livros. Verifique se o mesmo existe.",
+      );
   }
 });
 

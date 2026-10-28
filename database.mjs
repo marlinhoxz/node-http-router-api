@@ -92,8 +92,19 @@ export function pegarAutor(slug) {
 
 }
 
+export function pegarLivro(autorSlug, livroSlug) {
 
- db.exec(/* sql */`
-  
-  DELETE FROM "autores" WHERE "slug" = 'joao'
-  `) 
+  try {
+    return db.prepare(/* sql */`
+
+        SELECT * FROM "livros" WHERE "autor_id" = (SELECT "id" FROM "autores" WHERE "slug" = ?) AND "slug" = ?
+
+      `).get(autorSlug, livroSlug)
+
+  } catch (err){
+
+    console.log('Erro ao pesquisar livro', err)
+
+  }
+
+}

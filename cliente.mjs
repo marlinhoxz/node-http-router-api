@@ -21,10 +21,10 @@ const criarLivro = await fetch(base + "/livros", {
     "content-type": "application/json",
   },
   body: JSON.stringify({
-    autorSlug: "Picasso",
-    slug: "contos-de-marlinho",
-    titulo: "Contos de marlinho",
-    ano: 2000,
+    autorSlug: "flavio",
+    slug: "contos-de-fadas",
+    titulo: "Contos de fadas",
+    ano: 1930,
   }),
 });
 
@@ -40,3 +40,8 @@ const todosAutores = await listaAutores.json();
 const getAutor = await fetch(base + "/autor?slug=picasso");
 const resAutor = await getAutor.json();
 /* console.log(resAutor) */
+
+
+const getLivros = await fetch(base + '/livro?autor=flavio&livro=contos-de-fadas')
+const reslivro = await getLivros.json()
+console.log(reslivro)
